@@ -86,3 +86,4 @@ lint/tmp/
 
 #Secrets
 app/src/main/java/com/allybros/videogamesapp/api/Secrets.kt
+app/src/main/java/com/allybros/videogamesapp/api/Secrets.kt
