@@ -25,8 +25,7 @@ class GameDelegateAdapter : ViewTypeDelegateAdapter {
         parent.inflate(R.layout.games_item)) {
 
         fun bind(item: GameItem) = with(itemView) {
-            //Picasso.with(itemView.context).load(item.thumbnail).into(img_thumbnail)
-            img_thumbnail.loadImg(item.thumbnail)
+            img_thumbnail.loadImg(item.background_image)
             game_name.text = item.game_name
             games_rating.text = "Rating: "+item.rating.toString()
             games_released.text = "Released: "+item.released.toString()

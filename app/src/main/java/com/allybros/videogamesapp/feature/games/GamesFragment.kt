@@ -7,16 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allybros.videogamesapp.R
-import com.allybros.videogamesapp.commons.GameItem
+import com.allybros.videogamesapp.commons.RxBaseFragment
 import com.allybros.videogamesapp.commons.extensions.inflate
 import com.allybros.videogamesapp.feature.games.adapter.GamesAdapter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_games.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
-class GamesFragment : Fragment() {
+class GamesFragment : RxBaseFragment() {
 
-    private val gamesRecyclerView by lazy {
-        games_recyleView
-    }
+    private val gamesManager by lazy { GamesManager() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.fragment_games)
@@ -25,23 +26,30 @@ class GamesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        gamesRecyclerView.setHasFixedSize(true)
-        gamesRecyclerView.layoutManager = LinearLayoutManager(context)
+        games_recyleView.setHasFixedSize(true)
+        games_recyleView.layoutManager = LinearLayoutManager(context)
 
         initAdapter()
 
         if (savedInstanceState == null) {
-            val games = mutableListOf<GameItem>()
-            for (i in 1..10) {
-                games.add(GameItem(
-                        "$i. Game Name",
-                        4F,
-                        "$i/$i/$i$i$i$i", // image url
-                        "http://lorempixel.com/200/200/technics/$i"
-                ))
-            }
-            (gamesRecyclerView.adapter as GamesAdapter).addGame(games)
+            requestGames()
         }
+    }
+
+    private fun requestGames(){
+        val subscription = gamesManager
+                        .getGames()
+                        .subscribeOn(Schedulers.io())/*It is a API request*/
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { retrievedGames ->
+                                    (games_recyleView.adapter as GamesAdapter).addGame(retrievedGames)
+                                },
+                                { e->
+                                    Snackbar.make(games_recyleView, e.message ?: "",Snackbar.LENGTH_LONG).show()
+                                }
+                        )
+        subscriptions.add(subscription)
     }
 
     private fun initAdapter() {

@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,8 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        val toolbar = findViewById(R.id.search_bar) as SearchView
 
         if (savedInstanceState == null) {
             changeFragment(GamesFragment())
@@ -44,9 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Finish activity when reaching the last fragment.
-     */
+
     override fun onBackPressed() {
         val fragmentManager = supportFragmentManager;
         if (fragmentManager.backStackEntryCount > 1) {

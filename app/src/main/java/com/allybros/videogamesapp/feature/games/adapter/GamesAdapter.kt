@@ -52,7 +52,7 @@ class GamesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemRangeChanged(initPosition, items.size + 1 /* plus loading item */)
     }
 
-    fun clearAndAddNews(game: List<GameItem>) {
+    fun clearAndAddGames(game: List<GameItem>) {
         items.clear()
         notifyItemRangeRemoved(0, getLastPosition())
 
@@ -61,7 +61,7 @@ class GamesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemRangeInserted(0, items.size)
     }
 
-    fun getNews(): List<GameItem> {
+    fun getGames(): List<GameItem> {
         return items
                 .filter { it.getViewType() == AdapterConstants.GAMES }
                 .map { it as GameItem }
