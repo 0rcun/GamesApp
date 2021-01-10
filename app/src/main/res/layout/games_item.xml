@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip">
+
+    <!-- Left Thumbnail image -->
+
+    <ImageView
+        android:id="@+id/img_thumbnail"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp" />
+
+    <!-- Description -->
+
+    <TextView
+        android:id="@+id/game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/img_thumbnail"
+        android:layout_toRightOf="@+id/img_thumbnail"
+        android:textColor="#040404"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        tools:text="Name of Game" />
+
+    <!-- Author -->
+
+    <TextView
+        android:id="@+id/games_rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/game_name"
+        android:layout_below="@+id/game_name"
+        android:textColor="#606060"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        tools:text="Rating: 4.48" />
+
+    <!-- Comments -->
+
+    <TextView
+        android:id="@+id/games_released"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/games_rating"
+        android:layout_below="@+id/game_name"
+        android:gravity="right"
+        android:textColor="#606060"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        tools:text="Released: 2013-09-17" />
+
+</RelativeLayout>
