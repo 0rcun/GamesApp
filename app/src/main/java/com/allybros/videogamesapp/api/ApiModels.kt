@@ -8,7 +8,17 @@ class GamesResponse(
 
 class GamesResultResponse(
     val name: String,
+    val id: String,
     val rating: Float,
     val released: String,
     val background_image: String,
+)
+
+
+class GameProperties(
+        val name: String,
+        val released: String,
+        val metacritic: String,
+        val description: String,
+        val background_image: String
 )

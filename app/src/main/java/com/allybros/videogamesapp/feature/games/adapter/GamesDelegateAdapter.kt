@@ -1,7 +1,12 @@
 package com.allybros.videogamesapp.feature.games.adapter
 
+import android.content.Intent
+import android.util.Log
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.allybros.videogamesapp.PropertiesActivity
 import com.allybros.videogamesapp.R
 import com.allybros.videogamesapp.commons.GameItem
 import com.allybros.videogamesapp.commons.adapter.ViewType
@@ -29,6 +34,17 @@ class GameDelegateAdapter : ViewTypeDelegateAdapter {
             game_name.text = item.game_name
             games_rating.text = "Rating: "+item.rating.toString()
             games_released.text = "Released: "+item.released.toString()
+            this.setOnClickListener({
+                val id = item.id
+                Log.d("Clicked: ",id)
+
+                val intent = Intent(context, PropertiesActivity::class.java).apply{
+                    putExtra("ID",id)
+                }
+                context.startActivity(intent)
+
+
+            })
         }
     }
 }

@@ -1,16 +1,15 @@
 package com.allybros.videogamesapp
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.allybros.videogamesapp.feature.games.GamesFragment
+import com.allybros.videogamesapp.feature.favourites.PropertiesFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +17,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.search_bar) as SearchView
+        val navView = findViewById(R.id.nav_view) as BottomNavigationView
+
+        navView.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home-> {
+                    toolbar.visibility = VISIBLE
+                    title=resources.getString(R.string.games)
+                    changeFragment(GamesFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.favorites-> {
+                    title=resources.getString(R.string.favourites)
+                    toolbar.visibility = GONE
+                    changeFragment(PropertiesFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
 
         if (savedInstanceState == null) {
             changeFragment(GamesFragment())
