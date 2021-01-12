@@ -9,7 +9,7 @@ import com.allybros.videogamesapp.commons.adapter.ViewType
 import com.allybros.videogamesapp.commons.adapter.ViewTypeDelegateAdapter
 
 
-class GamesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FavouriteAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<ViewType>
     private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
@@ -18,8 +18,8 @@ class GamesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     init {
-        delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
-        delegateAdapters.put(AdapterConstants.GAMES, GamesDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.LOADING, FavouriteLoadingDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.GAMES, FavouriteDelegateAdapter())
         items = ArrayList()
         items.add(loadingItem)
     }
@@ -48,8 +48,7 @@ class GamesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         // insert game and the loading at the end of the list
         items.addAll(game)
-        items.add(loadingItem)
-        notifyItemRangeChanged(initPosition, items.size + 1 /* plus loading item */)
+        notifyItemRangeChanged(initPosition, items.size  /* plus loading item */)
     }
 
     fun clearAndAddGames(game: List<GameItem>) {

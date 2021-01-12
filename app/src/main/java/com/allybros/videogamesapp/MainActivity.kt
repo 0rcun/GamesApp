@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.allybros.videogamesapp.feature.favourites.FavouriteFragment
 import com.allybros.videogamesapp.feature.games.GamesFragment
-import com.allybros.videogamesapp.feature.favourites.PropertiesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.favorites-> {
                     title=resources.getString(R.string.favourites)
                     toolbar.visibility = GONE
-                    changeFragment(PropertiesFragment())
+                    changeFragment(FavouriteFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
             }

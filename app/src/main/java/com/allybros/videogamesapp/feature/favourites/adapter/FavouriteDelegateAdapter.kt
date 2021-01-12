@@ -15,7 +15,7 @@ import com.allybros.videogamesapp.commons.extensions.inflate
 import com.allybros.videogamesapp.commons.extensions.loadImg
 import kotlinx.android.synthetic.main.games_item.view.*
 
-class GamesDelegateAdapter : ViewTypeDelegateAdapter {
+class FavouriteDelegateAdapter : ViewTypeDelegateAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return TurnsViewHolder(parent)

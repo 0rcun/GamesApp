@@ -43,18 +43,18 @@ class GamesFragment : RxBaseFragment() {
 
     private fun requestGames(){
         val subscription = gamesManager.getGames(games?.next ?: "1")
-                        .subscribeOn(Schedulers.io())/*It is a API request*/
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { retrievedGames ->
-                                    Log.d("Receiver: ",games?.next.toString());
-                                    games = retrievedGames
-                                    (games_recyleView.adapter as GamesAdapter).addGame(retrievedGames.games)
-                                },
-                                { e->
-                                    Snackbar.make(games_recyleView, e.message ?: "",Snackbar.LENGTH_LONG).show()
-                                }
-                        )
+                .subscribeOn(Schedulers.io())/*It is a API request*/
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { retrievedGames ->
+                            Log.d("Receiver: ",games?.next.toString());
+                            games = retrievedGames
+                            (games_recyleView.adapter as GamesAdapter).addGame(retrievedGames.games)
+                        },
+                        { e->
+                            Snackbar.make(games_recyleView, e.message ?: "",Snackbar.LENGTH_LONG).show()
+                        }
+                )
         subscriptions.add(subscription)
     }
 

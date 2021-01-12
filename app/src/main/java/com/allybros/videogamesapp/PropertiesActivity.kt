@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.allybros.videogamesapp.commons.App
-import com.allybros.videogamesapp.commons.GameItem
 import com.allybros.videogamesapp.commons.RxBaseActivity
 import com.allybros.videogamesapp.commons.extensions.loadImg
 import com.allybros.videogamesapp.feature.favourites.Prefs
 import com.allybros.videogamesapp.feature.games.GamesManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_properties.*
-import kotlinx.android.synthetic.main.fragment_games.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 
 class PropertiesActivity : RxBaseActivity() {
 
-    var favFlag : Boolean = true
+    var favFlag : Boolean = false
     private val prefs: Prefs by lazy {
         Prefs(App.instance)
     }
@@ -43,13 +41,13 @@ class PropertiesActivity : RxBaseActivity() {
 
         favButton.setOnClickListener(View.OnClickListener { view ->
             if(favFlag){
-                favButton.background = resources.getDrawable(R.drawable.ic_baseline_favorite_24)
-                favFlag = true
-                arrayListGames.add(id)
-            }else{
                 favButton.background = resources.getDrawable(R.drawable.ic_baseline_favorite_border)
                 favFlag = false
                 arrayListGames.remove(id)
+            }else{
+                favButton.background = resources.getDrawable(R.drawable.ic_baseline_favorite_24)
+                favFlag = true
+                arrayListGames.add(id)
             }
         })
     }
@@ -70,15 +68,15 @@ class PropertiesActivity : RxBaseActivity() {
                             imageView_properties.loadImg(retrievedGames.background_image)
                         },
                         { e->
-                            Snackbar.make(games_recyleView, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(game_description, e.message ?: "", Snackbar.LENGTH_LONG).show()
                         }
                 )
         subscriptions.add(subscription)
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         val vowels_array: Array<String> = arrayListGames.toTypedArray()
         prefs.myStringArray = vowels_array
-        super.onDestroy()
+        super.onPause()
     }
 }
