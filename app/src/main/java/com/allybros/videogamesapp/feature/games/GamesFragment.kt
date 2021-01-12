@@ -2,9 +2,8 @@ package com.allybros.videogamesapp.feature.games
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allybros.videogamesapp.R
 import com.allybros.videogamesapp.commons.GameItem
@@ -18,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_games.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import kotlin.collections.ArrayList
 
 class GamesFragment : RxBaseFragment() {
 
@@ -25,6 +25,7 @@ class GamesFragment : RxBaseFragment() {
     private val gamesManager by lazy { GamesManager() }
     private var gamesArray: Array<GameItem>? = null
     var viewPagerAdapter: ViewPagerAdapter? = null
+    private var queryGames: ArrayList<GameItem>? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.fragment_games)
     }
@@ -72,3 +73,25 @@ class GamesFragment : RxBaseFragment() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

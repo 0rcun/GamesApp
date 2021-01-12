@@ -3,8 +3,11 @@ package com.allybros.videogamesapp.feature.favourites
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allybros.videogamesapp.R
 import com.allybros.videogamesapp.commons.*

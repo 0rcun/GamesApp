@@ -1,28 +1,24 @@
 package com.allybros.videogamesapp
 
 import android.os.Bundle
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.allybros.videogamesapp.feature.favourites.FavouriteFragment
 import com.allybros.videogamesapp.feature.games.GamesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_games.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.search_bar) as SearchView
         val navView = findViewById(R.id.nav_view) as BottomNavigationView
 
         navView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home-> {
-                    toolbar.visibility = VISIBLE
                     title=resources.getString(R.string.games)
                     changeFragment(GamesFragment())
                     return@setOnNavigationItemSelectedListener true
@@ -30,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.favorites-> {
                     title=resources.getString(R.string.favourites)
-                    toolbar.visibility = GONE
                     changeFragment(FavouriteFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
