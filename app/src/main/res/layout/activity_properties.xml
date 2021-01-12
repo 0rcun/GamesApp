@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <Button
+            android:id="@+id/favButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/ic_baseline_favorite_border"

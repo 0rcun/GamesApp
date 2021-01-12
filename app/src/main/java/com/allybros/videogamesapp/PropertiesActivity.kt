@@ -2,8 +2,12 @@ package com.allybros.videogamesapp
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.allybros.videogamesapp.commons.App
+import com.allybros.videogamesapp.commons.GameItem
 import com.allybros.videogamesapp.commons.RxBaseActivity
 import com.allybros.videogamesapp.commons.extensions.loadImg
+import com.allybros.videogamesapp.feature.favourites.Prefs
 import com.allybros.videogamesapp.feature.games.GamesManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_properties.*
@@ -14,6 +18,11 @@ import rx.schedulers.Schedulers
 
 class PropertiesActivity : RxBaseActivity() {
 
+    var favFlag : Boolean = true
+    private val prefs: Prefs by lazy {
+        Prefs(App.instance)
+    }
+    var arrayListGames = ArrayList<String>()
     private val gamesManager by lazy { GamesManager() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +30,30 @@ class PropertiesActivity : RxBaseActivity() {
         setContentView(R.layout.activity_properties)
         val id = intent.getStringExtra("ID")
         getGameInfo(id!!)
+        var arrayGames = prefs.myStringArray
+        for(item: String in arrayGames){
+            arrayListGames.add(item)
+        }
+        for (item: String in arrayGames){
+            if(item.equals(id)) {
+                favButton.background = resources.getDrawable(R.drawable.ic_baseline_favorite_24)
+                favFlag = true
+            }
+        }
+
+        favButton.setOnClickListener(View.OnClickListener { view ->
+            if(favFlag){
+                favButton.background = resources.getDrawable(R.drawable.ic_baseline_favorite_24)
+                favFlag = true
+                arrayListGames.add(id)
+            }else{
+                favButton.background = resources.getDrawable(R.drawable.ic_baseline_favorite_border)
+                favFlag = false
+                arrayListGames.remove(id)
+            }
+        })
     }
+
 
 
     private fun getGameInfo(id: String){
@@ -42,5 +74,11 @@ class PropertiesActivity : RxBaseActivity() {
                         }
                 )
         subscriptions.add(subscription)
+    }
+
+    override fun onDestroy() {
+        val vowels_array: Array<String> = arrayListGames.toTypedArray()
+        prefs.myStringArray = vowels_array
+        super.onDestroy()
     }
 }
