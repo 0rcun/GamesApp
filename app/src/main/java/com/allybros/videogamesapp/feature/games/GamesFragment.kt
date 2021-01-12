@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allybros.videogamesapp.R
+import com.allybros.videogamesapp.commons.GameItem
 import com.allybros.videogamesapp.commons.Games
 import com.allybros.videogamesapp.commons.InfiniteScrollListener
 import com.allybros.videogamesapp.commons.RxBaseFragment
 import com.allybros.videogamesapp.commons.extensions.inflate
 import com.allybros.videogamesapp.feature.games.adapter.GamesAdapter
+import com.allybros.videogamesapp.feature.games.adapter.ViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_games.*
 import rx.android.schedulers.AndroidSchedulers
@@ -21,7 +23,8 @@ class GamesFragment : RxBaseFragment() {
 
     private var games: Games? = null
     private val gamesManager by lazy { GamesManager() }
-
+    private var gamesArray: Array<GameItem>? = null
+    var viewPagerAdapter: ViewPagerAdapter? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.fragment_games)
     }
@@ -35,7 +38,6 @@ class GamesFragment : RxBaseFragment() {
         games_recyleView.clearOnScrollListeners()
         games_recyleView.addOnScrollListener(InfiniteScrollListener({ requestGames() }, linearLayout))
         initAdapter()
-
         if (savedInstanceState == null) {
             requestGames()
         }
@@ -49,7 +51,12 @@ class GamesFragment : RxBaseFragment() {
                         { retrievedGames ->
                             Log.d("Receiver: ",games?.next.toString());
                             games = retrievedGames
+                            gamesArray = arrayOf<GameItem>(retrievedGames.games[0],retrievedGames.games[1],retrievedGames.games[2])
+                            Log.d("Images",""+retrievedGames.games[0]+"\n"+retrievedGames.games[1]+"\n"+retrievedGames.games[2])
                             (games_recyleView.adapter as GamesAdapter).addGame(retrievedGames.games)
+
+                            viewPagerAdapter = ViewPagerAdapter(gamesArray, context)
+                            viewPager.adapter = viewPagerAdapter
                         },
                         { e->
                             Snackbar.make(games_recyleView, e.message ?: "",Snackbar.LENGTH_LONG).show()
